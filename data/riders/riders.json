@@ -1,0 +1,8 @@
+[
+  {"id":"pish-taz","name_fa":"پیشتاز","name_en":"Vanguard","preferred_role":"attacker","allowed_roles":["attacker","runner"],"strike":78,"ride":62,"control":70,"focus":72,"trait":"sharp_eye","skill":"ضربه طلایی","horse_id":"tizpa"},
+  {"id":"bal-ro","name_fa":"بال‌رو","name_en":"Wing Rider","preferred_role":"runner","allowed_roles":["runner","attacker"],"strike":76,"ride":76,"control":66,"focus":70,"trait":"wide_lane","skill":"یورش کناره","horse_id":"hamahang"},
+  {"id":"meydan-dar","name_fa":"میدان‌دار","name_en":"Field Keeper","preferred_role":"midfielder","allowed_roles":["midfielder","attacker","guardian"],"strike":68,"ride":69,"control":82,"focus":76,"trait":"field_sense","skill":"خواندن میدان","horse_id":"aram"},
+  {"id":"dejban","name_fa":"دژبان","name_en":"Bulwark","preferred_role":"guardian","allowed_roles":["guardian","midfielder"],"strike":59,"ride":80,"control":69,"focus":73,"trait":"line_guard","skill":"قفل خط","horse_id":"ostovar"},
+  {"id":"tond-taz","name_fa":"تندتاز","name_en":"Sprinter","preferred_role":"runner","allowed_roles":["runner","attacker"],"strike":79,"ride":70,"control":62,"focus":66,"trait":"burst","skill":"شتاب ناگهانی","horse_id":"tizpa"},
+  {"id":"aram-ran","name_fa":"آرام‌ران","name_en":"Calm Rider","preferred_role":"midfielder","allowed_roles":["midfielder","guardian"],"strike":62,"ride":64,"control":79,"focus":84,"trait":"steady_hand","skill":"نفس تازه","horse_id":"aram"}
+]

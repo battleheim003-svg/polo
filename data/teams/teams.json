@@ -1,0 +1,4 @@
+[
+  {"id":"player","name":"Player Team","rider_ids":["pish-taz","meydan-dar","dejban","aram-ran"],"base_tactic":"hold_line","ai_profile":"balanced"},
+  {"id":"enemy","name":"Rival Team","rider_ids":["bal-ro","tond-taz","meydan-dar","dejban"],"base_tactic":"press","ai_profile":"adaptive"}
+]

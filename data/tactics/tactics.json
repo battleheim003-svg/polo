@@ -1,0 +1,7 @@
+[
+  {"id":"press","name_fa":"پرس شدید","name_en":"Heavy Press","effects":{"hook":7,"ride_off":7,"focus":-2}},
+  {"id":"hold_line","name_fa":"حفظ خط","name_en":"Hold Line","effects":{"strike":7,"foul":-1}},
+  {"id":"safe_pass","name_fa":"پاس امن","name_en":"Safe Pass","effects":{"pass":7,"advance":-1}},
+  {"id":"counter","name_fa":"ضدحمله","name_en":"Counter","effects":{"shot":7,"stamina":-2}},
+  {"id":"calm","name_fa":"آرام‌سازی","name_en":"Calm Tempo","effects":{"recovery":7,"focus":3}}
+]

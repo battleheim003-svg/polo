@@ -1,0 +1,6 @@
+[
+  {"id":"tizpa","name":"تیزپا","speed":84,"stamina":72,"calmness":58,"coordination":70,"trait":"fast"},
+  {"id":"ostovar","name":"استوار","speed":62,"stamina":88,"calmness":73,"coordination":67,"trait":"stable"},
+  {"id":"aram","name":"آرام","speed":66,"stamina":78,"calmness":88,"coordination":74,"trait":"calm"},
+  {"id":"hamahang","name":"هماهنگ","speed":76,"stamina":76,"calmness":72,"coordination":86,"trait":"coordinated"}
+]
