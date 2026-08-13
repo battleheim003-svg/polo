@@ -17,6 +17,16 @@ func choose_command(state: MatchState, team_index: int, team: TeamDefinition) ->
 		if state.pressure[team_index] > 0.35:
 			return "calm"
 		return "press"
+	if team.ai_profile == "boss":
+		if state.chukker >= 2 or behind:
+			return "press" if not owns_ball else "counter"
+		return "safe_pass" if owns_ball else "hold_line"
+	if team.ai_profile == "defensive":
+		if ahead:
+			return "calm"
+		if owns_ball and state.ball.zone <= 3:
+			return "safe_pass"
+		return "hold_line"
 	if behind and state.time_remaining < 60:
 		return "press"
 	if ahead and state.time_remaining < 45:

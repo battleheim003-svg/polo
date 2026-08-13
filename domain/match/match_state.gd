@@ -8,6 +8,7 @@ var riders: Array[Dictionary] = []
 var horses: Dictionary = {}
 var ball: BallState = BallState.new()
 var pressure: Array[float] = [0.0, 0.0]
+var team_ids: Array[String] = ["player", "enemy"]
 var active_command: String = "hold_line"
 var command_ticks_remaining: int = 0
 var command_uses: Dictionary = {}
@@ -37,6 +38,7 @@ func _init() -> void:
 	horses = {}
 	ball = BallState.new()
 	pressure = [0.0, 0.0]
+	team_ids = ["player", "enemy"]
 	active_command = "hold_line"
 	command_ticks_remaining = 0
 	command_uses = {}
@@ -77,6 +79,7 @@ func snapshot() -> Dictionary:
 			"controlled": ball.controlled
 		},
 		"pressure": pressure.duplicate(),
+		"team_ids": team_ids.duplicate(),
 		"active_command": active_command,
 		"command_ticks_remaining": command_ticks_remaining,
 		"command_uses": command_uses.duplicate(true),

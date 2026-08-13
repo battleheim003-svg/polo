@@ -3,6 +3,7 @@ extends Node
 const SAVE_PATH := "user://chogan_save.json"
 const BACKUP_PATH := "user://chogan_save.bak.json"
 const SCHEMA_VERSION := 1
+const RUN_STATE := preload("res://domain/run/run_state.gd")
 
 var data: Dictionary = {
 	"schema": SCHEMA_VERSION,
@@ -10,8 +11,20 @@ var data: Dictionary = {
 	"match_speed": 1.0,
 	"persian_digits": true,
 	"last_seed": 1403,
-	"last_lineup": []
+	"last_lineup": [],
+	"run": {},
+	"meta": {"completed_runs": 0, "best_coins": 0, "tutorial_seen": false}
 }
+
+func set_run(run_state: RefCounted) -> void:
+	data["run"] = run_state.to_dict()
+	save()
+
+func get_run() -> RefCounted:
+	var run_data: Variant = data.get("run", {})
+	if typeof(run_data) == TYPE_DICTIONARY and not run_data.is_empty():
+		return RUN_STATE.from_dict(run_data)
+	return null
 
 func _ready() -> void:
 	load_save()
@@ -40,4 +53,3 @@ func save() -> void:
 	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	if file:
 		file.store_string(JSON.stringify(data, "\t"))
-

@@ -14,6 +14,7 @@ func create_match(seed_value: int, player_team_id: String = "player", enemy_team
 	state.seed = seed_value
 	state.rng_state = seed_value
 	state.status = "running"
+	state.team_ids = [player_team_id, enemy_team_id]
 	var player: TeamDefinition = repo.teams[player_team_id]
 	var enemy: TeamDefinition = repo.teams[enemy_team_id]
 	var lineup := player_lineup if player_lineup.size() == 4 else player.rider_ids
@@ -44,7 +45,7 @@ func simulate_tick(state: MatchState, commands: Array[String]) -> Array[MatchEve
 	state.tick_index += 1
 	state.skill_tick_guard.clear()
 	var player_command := _resolve_player_command(state, commands[0] if commands.size() > 0 else state.active_command, batch)
-	var enemy_team: TeamDefinition = repo.teams["enemy"]
+	var enemy_team: TeamDefinition = repo.teams[state.team_ids[1]]
 	var enemy_command := ai.choose_command(state, 1, enemy_team)
 	var action := _choose_action(state)
 	_resolve_action(state, rng, action, player_command, enemy_command, batch)
@@ -125,6 +126,9 @@ func _choose_action(state: MatchState) -> String:
 		return BalanceConfig.ACTION_RECOVERY
 	if (state.ball.zone == 5 and state.ball.possession_team == 0) or (state.ball.zone == 1 and state.ball.possession_team == 1):
 		return BalanceConfig.ACTION_SHOT
+	if state.scores[0] == state.scores[1] and _is_late_match(state):
+		if (state.ball.zone >= 4 and state.ball.possession_team == 0) or (state.ball.zone <= 2 and state.ball.possession_team == 1):
+			return BalanceConfig.ACTION_SHOT
 	var roll := int(DeterministicRng.value(state.seed, state.tick_index * 10 + 1) * 100.0)
 	if roll < 16:
 		return BalanceConfig.ACTION_HOOK
@@ -179,7 +183,8 @@ func _resolve_action(state: MatchState, rng: DeterministicRng, action: String, p
 		BalanceConfig.ACTION_SHOT:
 			state.stats["shots"] += 1
 			batch.append(MatchEvent.new("ShotAttempted", "Shot attempted.", {"team": team, "dominance": dominance}))
-			if dominance + _variance(state, 4, -10, 10) > BalanceConfig.SHOT_THRESHOLD:
+			var late_tie_bonus := BalanceConfig.LATE_TIE_SHOT_BONUS if state.scores[0] == state.scores[1] and _is_late_match(state) else 0.0
+			if dominance + late_tie_bonus + _variance(state, 4, -10, 10) > BalanceConfig.SHOT_THRESHOLD:
 				state.scores[team] += 1
 				state.stats["goals"] += 1
 				state.ball.attack_direction *= -1
@@ -280,6 +285,12 @@ func _advance_clock(state: MatchState, batch: Array[MatchEvent]) -> void:
 		state.time_remaining = BalanceConfig.CHUKKER_SECONDS
 		state.status = "between_chukkers"
 		batch.append(MatchEvent.new("ChukkerStarted", "Chukker %d ready." % state.chukker, {"chukker": state.chukker}))
+	elif state.scores[0] == state.scores[1] and state.extra_ticks == 0 and DeterministicRng.value(state.seed, state.tick_index * 10 + 8) < BalanceConfig.REGULATION_ADVANTAGE_RESOLVE_RATE:
+		var winner := _tie_break_winner(state)
+		state.scores[winner] += 1
+		batch.append(MatchEvent.new("TieBreakResolved", "Regulation advantage resolved the match.", {"team": winner, "reason": "advantage"}))
+		state.status = "ended"
+		batch.append(MatchEvent.new("MatchEnded", "Match ended.", {"scores": state.scores.duplicate(), "reason": "time"}))
 	elif state.scores[0] == state.scores[1] and state.extra_ticks < BalanceConfig.MAX_EXTRA_TICKS:
 		state.extra_ticks += 1
 		state.time_remaining = BalanceConfig.TICK_SECONDS
@@ -290,6 +301,10 @@ func _advance_clock(state: MatchState, batch: Array[MatchEvent]) -> void:
 			batch.append(MatchEvent.new("TieBreakResolved", "Tie-break resolved the match.", {"team": winner, "reason": "advantage"}))
 		state.status = "ended"
 		batch.append(MatchEvent.new("MatchEnded", "Match ended.", {"scores": state.scores.duplicate(), "reason": "time"}))
+
+func _is_late_match(state: MatchState) -> bool:
+	var regular_ticks := int((BalanceConfig.CHUKKER_SECONDS * BalanceConfig.CHUKKER_COUNT) / BalanceConfig.TICK_SECONDS)
+	return state.tick_index >= regular_ticks - 12
 
 func _maybe_foul(state: MatchState, batch: Array[MatchEvent]) -> void:
 	var holder := _rider_state(state, state.ball.holder_id)
@@ -392,7 +407,7 @@ func _rider_state(state: MatchState, rider_id: String) -> Dictionary:
 func _tie_break_winner(state: MatchState) -> int:
 	var player_total := _team_condition_score(state, 0)
 	var enemy_total := _team_condition_score(state, 1)
-	if is_equal_approx(player_total, enemy_total):
+	if absf(player_total - enemy_total) < 12.0:
 		return state.seed % 2
 	return 0 if player_total > enemy_total else 1
 
@@ -403,6 +418,8 @@ func _team_condition_score(state: MatchState, team: int) -> float:
 			total += float(rider["stamina"]) * 0.55 + float(rider["focus"]) * 0.45
 	total += 3.0 if state.ball.line_owner_team == team else 0.0
 	total += 2.0 if state.ball.possession_team == team else 0.0
+	if team == 1:
+		total += 14.0
 	return total
 
 func _role_zone(role: String) -> int:

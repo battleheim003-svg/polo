@@ -6,6 +6,8 @@ export_credentials.cfg
 *.tmp
 balance_report.json
 balance_report.csv
+run_report.json
+telemetry/
 builds/*.apk
 *.apk
 *.aab
