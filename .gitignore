@@ -18,6 +18,9 @@ builds/keystores/
 *.jks
 downloads/
 delivery/
+reports/device/
+screenshots/
+recordings/
 reports/generated/
 reports/audit/*.log
 reports/audit/balance_run_project/
