@@ -1,10 +1,8 @@
 # Release Notes
 
-Chogan 0.2.0 vertical-slice-playtest
+Chogan 0.3.0 interactive-match-prototype
 
-- مسیر cup run سه مسابقه ای اضافه شده است.
-- Tutorial، Preparation، Run Map، Reward، Event، Camp، Market، Boss و Run Result قابل تست هستند.
-- Save/Continue برای run محلی فعال است.
-- سه تیم حریف متمایز و AI boss اضافه شده اند.
-- APK debug روی دستگاه واقعی نصب و launch شده است.
-- Release APK امضا و verify شده است، اما نصب release روی دستگاه debug به دلیل تفاوت signature تست نشد.
+- مسیر cup run نسخه 0.2.0 حفظ شده است.
+- مسابقه جدید دوبعدی تعاملی با حرکت مستقیم، توپ قابل مشاهده، AI ساده، pass، strike، hook، ride-off و goal اضافه شده است.
+- Preparation وارد صحنه interactive match می شود و نتیجه به Result/Run flow فعلی برمی گردد.
+- این نسخه هنوز prototype است و full art/audio نهایی ندارد.

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dual-touch-controller"]
+
+[ext_resource type="Script" path="res://scenes/interactive_match/input/dual_touch_controller.gd" id="1"]
+
+[node name="DualTouchController" type="CanvasLayer"]
+script = ExtResource("1")

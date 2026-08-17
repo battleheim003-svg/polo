@@ -1,0 +1,17 @@
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+SCRIPT ERROR: Parse Error: Could not find type "DualTouchController" in the current scope.
+   at: GDScript::reload (res://scenes/interactive_match/interactive_match.gd:17)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/interactive_scene_smoke.gd:4)
+SCRIPT ERROR: Parse Error: Cannot infer the type of "touch_state" variable because the value doesn't have a set type.
+   at: GDScript::reload (res://scenes/interactive_match/interactive_match.gd:292)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/interactive_scene_smoke.gd:4)
+ERROR: Failed to load script "res://scenes/interactive_match/interactive_match.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+   GDScript backtrace (most recent call first):
+       [0] _init (res://tests/interactive_scene_smoke.gd:4)
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)
+INTERACTIVE SCENE SMOKE PASSED

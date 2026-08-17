@@ -1,0 +1,35 @@
+{
+  "video": "F:\\polo\\references\\visual-gameplay-reference.mp4",
+  "frames": 240,
+  "fps": 24.0,
+  "width": 1280,
+  "height": 720,
+  "duration": 10.0,
+  "samples": [
+    {
+      "frame": 12,
+      "time": 0.5,
+      "path": "F:\\polo\\reports\\interactive-match\\reference_frames\\reference_frame_01.png"
+    },
+    {
+      "frame": 48,
+      "time": 2.0,
+      "path": "F:\\polo\\reports\\interactive-match\\reference_frames\\reference_frame_02.png"
+    },
+    {
+      "frame": 96,
+      "time": 4.0,
+      "path": "F:\\polo\\reports\\interactive-match\\reference_frames\\reference_frame_03.png"
+    },
+    {
+      "frame": 144,
+      "time": 6.0,
+      "path": "F:\\polo\\reports\\interactive-match\\reference_frames\\reference_frame_04.png"
+    },
+    {
+      "frame": 192,
+      "time": 8.0,
+      "path": "F:\\polo\\reports\\interactive-match\\reference_frames\\reference_frame_05.png"
+    }
+  ]
+}

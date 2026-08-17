@@ -8,6 +8,10 @@
 
 config_version=5
 
+[debug]
+
+file_logging/enable_file_logging=false
+
 [animation]
 
 compatibility/default_parent_skeleton_in_mesh_instance_3d=true
